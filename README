@@ -51,11 +51,7 @@ ADI is hard coded to run NT = 5 times
 
 CRANK-NICHOLSON / ADI both max out at malloc size of 7x7x7 thusly the timings are analyzed for 3,4,5,6 
 
-Convergence is 'reached' after NT runs, code has a distance function to measure tolerance, but was not in the end implemented
 
-RREF functions were ported over from HW1, and in doing so, assumed to be correctly functioning (RREF from hw1 solutions failed to compile with C89 gcc and was not implemented)
-
-Over 800 lines of code comes close to the scope of the poker game implemented in C! 
 
 TIMING ANALYIS
 --------------
