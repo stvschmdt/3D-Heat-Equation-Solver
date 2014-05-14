@@ -1,0 +1,78 @@
+steveschmidt
+hw2
+
+*****************************************
+***Running The 3D Heat Equation Solver***
+*****************************************
+
+> make && ./ftcs
+
+> make clean  //should be called after running, to rm the test files created
+
+***************
+*** OPTIONS ***
+***************
+
+Input a file (yes=1) or (no=0) use hard coded example
+
+Choose your method (FTCS = 0 , CRANK-NICHOLSON = 1 , ADI = 2)
+
+Choose your boundary conditions (Zeroes = 0 , Constant (the value 3) = 1, Periodic = 2)
+
+OUTPUT <=> Timing
+
+OUTPUT <=> This program CREATES FILES in the working directory (FTCS creates 4, Crank/ADI creates 3) called ftcs#.txt in the format:
+x y val
+x y val
+x y val
+.. .. ..
+
+
+--These files were used in testing the code via gnuplot script:
+$ gnuplot
+> set cbrange [0:1.5];
+> set palette defined (0 "blue", 1 "red");
+> plot "xyz.dat"  w image;
+
+***************
+***************
+
+
+NOTES
+-----
+
+Due to space contrainsts, and timing analysis, the following 'strict' conditions are axiomatic to running the code:
+
+FTCS is hard coded to run NT = 10000 times
+
+CRANK-NICHOLSON is hard coded to run NT = 5 times - converges quickly
+
+ADI is hard coded to run NT = 5 times
+
+CRANK-NICHOLSON / ADI both max out at malloc size of 7x7x7 thusly the timings are analyzed for 3,4,5,6 
+
+Convergence is 'reached' after NT runs, code has a distance function to measure tolerance, but was not in the end implemented
+
+RREF functions were ported over from HW1, and in doing so, assumed to be correctly functioning (RREF from hw1 solutions failed to compile with C89 gcc and was not implemented)
+
+Over 800 lines of code comes close to the scope of the poker game implemented in C! 
+
+TIMING ANALYIS
+--------------
+
+As expected, FTCS is with quadratic increase with N, and converges slowly, altho runs quickly
+
+Crank-Nicholson scales exponentially as the problem becomse solving a 2D N^3 x N^3 system of equations with RREF, and is incredibly space intensive, as a malloc'd 2D array must be created and passed into the RREF function
+
+ADI is 3x slower than Crank-Nicholson as each system described above is created and solved for each dimension (3), NT times, altho the space requirements remain the same as Crank-Nicholson
+
+
+ATTACHMENTS
+-----------
+
+matplots.m	// file to plot timings for analysis
+analysis.fig	// figure showing plots of timings for various NxNxN
+numfile.txt	// sample input file for the program to show formatting
+
+
+
